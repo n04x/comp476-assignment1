@@ -9,6 +9,8 @@ TagManager:
   - Red
   - BlueFlag
   - RedFlag
+  - RedBase
+  - BlueBase
   layers:
   - Default
   - TransparentFX

@@ -26,33 +26,35 @@ public class RedAIBehavior : MonoBehaviour
     float wander_radius = 100.0f;
     Vector3 current_random_point;
 
-    int action = 0;
     // check if the player has been tagged or not.
-    bool tagged = false;
     float wander_timer_refresh = 0.0f;
+
+    public enum Actions {WANDER, ARRIVE, FLEE, PURSUE, TAGGED};
+    public Actions current_action;
+    public bool enemy_area = false;
+    public bool has_flag = false;
 
     void Start() {
         // target_rotation = transform.rotation;
         // rb = GetComponent<Rigidbody>();
-        action = 0;
 
     }
     void FixedUpdate() {
-        if(!tagged) {
-            if(action == 0) {
-                Wander();
-            } else if(action == 1) {
-                Arrive();
-            } else
-            {
-                Flee();
-            }
-        } else
-        {
+        if(has_flag) {
+            Debug.Log(gameObject.tag + " team has the flag!");
+        }
+        if(current_action == Actions.WANDER) {
+            Wander();
+        } else if(current_action == Actions.ARRIVE) {
+            Arrive();
+        } else if(current_action == Actions.FLEE) {
+            Flee();
+        } else if(current_action == Actions.PURSUE) {
+            Pursue();
+        } else if(current_action == Actions.TAGGED) {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = transform.position;
         }
-
     }
 
     void Arrive() {
@@ -70,7 +72,7 @@ public class RedAIBehavior : MonoBehaviour
 
     void Flee() {
         distance_from_target = (target.transform.position - transform.position).magnitude;
-        if(distance_from_target > arrival_radius) {
+        if(distance_from_target > minimum_distance) {
             transform.rotation = Quaternion.LookRotation(transform.position - target.transform.position);
             GetComponent<Rigidbody>().velocity = -((target.transform.position - transform.position).normalized * speed);
         } else {
@@ -101,15 +103,32 @@ public class RedAIBehavior : MonoBehaviour
         GetComponent<Rigidbody>().velocity = ((target.transform.position - transform.position).normalized * speed + target.GetComponent<Rigidbody>().velocity);
     }
     void OnCollisionEnter(Collision other) {
-        Debug.Log(gameObject.tag + " " + action);
-        if(other.gameObject.tag == "Blue" && transform.position.x < 0) {
-            tagged = true;
+        if(other.gameObject.tag == "Blue" && enemy_area || has_flag) {
+            has_flag = false;
+            current_action = Actions.TAGGED;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         } else if(other.gameObject.tag == "Blue") {
-            action = 2;
+           current_action = Actions.FLEE;
             target = other.gameObject;
         } else {
             return;
+        }
+    }
+
+    public int currentAction() {
+        return (int) current_action;
+    }
+    public void setActions(int action) {
+        if(action == 1) {
+            current_action = Actions.ARRIVE;
+        } else if(action == 2) {
+            current_action = Actions.FLEE;
+        } else if(action == 3) {
+            current_action = Actions.PURSUE;            
+        } else if(action == 4) {
+            current_action = Actions.TAGGED;
+        } else {
+            current_action = Actions.WANDER;
         }
     }
 }
