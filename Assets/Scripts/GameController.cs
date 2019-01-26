@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -14,20 +15,35 @@ public class GameController : MonoBehaviour
     enum Movement {WANDER, ARRIVE, FLEE, PURSUE, TAGGED}
     public GameObject red_tester;
     public GameObject blue_tester;
+    
+    bool red_tagged = false;
+    bool blue_tagged = false;
+    
+    public Text game_over_text;
+    public bool red_attacker = false;
+    public bool blue_attacker = false;
 
-    bool red_attacker = false;
-    bool blue_attacker = false;
+    public bool red_rescue = false;
+    public bool blue_rescue = false;
 
-    bool red_defender = false;
-    bool blue_defender = false;
+    public bool red_defender = false;
+    public bool blue_defender = false;
 
     public bool red_flag_captured = false;
     public bool blue_flag_captured = false;
+
+    float restart_timer = 5.0f;
+    public bool game_over = false;
+    public bool blue_win = false;
+    public bool red_win = false;
     // Update is called once per frame
     void Update()
     {
         Attacker();
         Defender();
+        if(game_over) {
+            GameOver();
+        }
     }
     // =================================================================
     // Function to select an attacker and to see if there is already one.
@@ -84,13 +100,13 @@ public class GameController : MonoBehaviour
         }
         // Check if there is a BLUE player in the RED home area
         foreach (GameObject target in blue_team) {
-            if(target.GetComponent<BlueAIBehavior>().enemy_area) {
+            if(target.GetComponent<BlueAIBehavior>().enemy_area && target.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
                 blue_enemy_target = target;
             }
         }
         // Check if there is a RED player in the BLUE home area
         foreach (GameObject target in red_team) {
-            if(target.GetComponent<RedAIBehavior>().enemy_area) {
+            if(target.GetComponent<RedAIBehavior>().enemy_area && target.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
                 red_enemy_target = target;
             }
         }
@@ -99,7 +115,7 @@ public class GameController : MonoBehaviour
         if(!red_defender && blue_enemy_target != null) {
             int index = Random.Range(0,3);
             red_script = red_team[index].GetComponent<RedAIBehavior>();
-            if(red_script.currentAction() == (int) Movement.WANDER) {
+            if(red_script.currentAction() == (int) Movement.WANDER && !red_script.has_flag) {
                 red_script.setActions(3);
                 red_script.target = blue_enemy_target;
             }
@@ -108,10 +124,38 @@ public class GameController : MonoBehaviour
         if(!blue_defender && red_enemy_target != null) {
             int index = Random.Range(0,3);
             blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
-            if(blue_script.currentAction() == (int) Movement.WANDER) {
+            if(blue_script.currentAction() == (int) Movement.WANDER && !blue_script.has_flag) {
                 blue_script.setActions(3);
                 blue_script.target = red_enemy_target;
             }
+        }
+    }
+
+    void Rescue() {
+        int tagged_counter = 0;
+        foreach (GameObject player in red_team)
+        {
+            if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.TAGGED) {
+                tagged_counter++;
+            }
+        }
+        if(tagged_counter > 0 && tagged_counter < 3) {
+            
+        }
+    }
+    // team 1 = blue and team 2 = red.
+    public void GameOver() {
+        restart_timer -= Time.deltaTime;
+        if(restart_timer < 0) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+        if(blue_win) {
+            // blue team win
+            game_over_text.text = "Blue team win! game restart in: " + (int) restart_timer;
+        } else if(red_win) {
+            // red team win
+            game_over_text.text = "Red team win! game restart in: " + (int) restart_timer;
+
         }
     }
 }

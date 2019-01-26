@@ -23,12 +23,12 @@ public class FlagBehavior : MonoBehaviour
     void Update() {
         if(flag_captured) {
             if(team == Team.BLUE) {
-                transform.position = (enemy.transform.position - new Vector3(-1.0f, 0.0f, 0.0f));
+                transform.position = (enemy.transform.position - new Vector3(1.0f, 0.0f, 0.0f));
                 if(enemy.GetComponent<RedAIBehavior>().currentAction() == 4) {
                     flag_captured = false;
                 }
             } else if(team == Team.RED) {
-                transform.position = (enemy.transform.position - new Vector3(1.0f, 0.0f, 0.0f));
+                transform.position = (enemy.transform.position + new Vector3(1.0f, 0.0f, 0.0f));
                  if(enemy.GetComponent<BlueAIBehavior>().currentAction() == 4) {
                     flag_captured = false;
                 }

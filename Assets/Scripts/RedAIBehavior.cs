@@ -5,7 +5,9 @@ using UnityEngine;
 public class RedAIBehavior : MonoBehaviour
 {
     private Rigidbody rb;
+    private GameController game_controller;
     public GameObject target;
+    public GameObject tagged_aura;
     public Quaternion target_rotation;
     public Vector3 velocity;
     public float statisfaction_radius = 0.1f;
@@ -29,6 +31,8 @@ public class RedAIBehavior : MonoBehaviour
     // check if the player has been tagged or not.
     float wander_timer_refresh = 0.0f;
 
+    float flee_time = 1.0f;
+
     public enum Actions {WANDER, ARRIVE, FLEE, PURSUE, TAGGED};
     public Actions current_action;
     public bool enemy_area = false;
@@ -37,21 +41,36 @@ public class RedAIBehavior : MonoBehaviour
     void Start() {
         // target_rotation = transform.rotation;
         // rb = GetComponent<Rigidbody>();
+        GameObject game_controller_object = GameObject.FindWithTag("GameController");
+        if(game_controller_object != null) {
+			game_controller = game_controller_object.GetComponent<GameController>();
+		}	
+		if(game_controller == null) {
+			Debug.Log("cant find 'GameController' script");
+		}
     }
     void FixedUpdate() {
         if(has_flag) {
-            Debug.Log(gameObject.tag + " team has the flag!");
+            // Debug.Log(gameObject.tag + " team has the flag!");
+            target = GameObject.FindWithTag("RedBase");
+            current_action = Actions.ARRIVE;
         }
         if(current_action == Actions.WANDER) {
             Wander();
         } else if(current_action == Actions.ARRIVE) {
             Arrive();
         } else if(current_action == Actions.FLEE) {
-            Flee();
+            flee_time -= Time.deltaTime;
+            if(flee_time > 0) {
+                Flee();
+            } else {
+                current_action = Actions.WANDER;
+                flee_time = 1.0f;
+            }
         } else if(current_action == Actions.PURSUE) {
             Pursue();
         } else if(current_action == Actions.TAGGED) {
-            transform.Find("Tagged").GetComponent<MeshRenderer>().enabled = true;
+            tagged_aura.GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = transform.position;
         }
@@ -103,13 +122,21 @@ public class RedAIBehavior : MonoBehaviour
         GetComponent<Rigidbody>().velocity = ((target.transform.position - transform.position).normalized * speed + target.GetComponent<Rigidbody>().velocity);
     }
     void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "Blue" && enemy_area || has_flag) {
-            has_flag = false;
+        if(other.gameObject.tag == "Blue" && enemy_area) {
+            if(has_flag) {
+                has_flag = false;
+            }
             current_action = Actions.TAGGED;
+            game_controller.red_attacker = false;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         } else if(other.gameObject.tag == "Blue") {
            current_action = Actions.FLEE;
             target = other.gameObject;
+            game_controller.red_defender = false;
+            game_controller.red_attacker = false;
+        } else if(other.gameObject.tag == "Red" && current_action == Actions.TAGGED) {
+            current_action = Actions.FLEE;
+            tagged_aura.GetComponent<MeshRenderer>().enabled = false;
         } else {
             return;
         }
