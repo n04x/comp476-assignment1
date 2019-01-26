@@ -37,7 +37,6 @@ public class RedAIBehavior : MonoBehaviour
     void Start() {
         // target_rotation = transform.rotation;
         // rb = GetComponent<Rigidbody>();
-
     }
     void FixedUpdate() {
         if(has_flag) {
@@ -52,6 +51,7 @@ public class RedAIBehavior : MonoBehaviour
         } else if(current_action == Actions.PURSUE) {
             Pursue();
         } else if(current_action == Actions.TAGGED) {
+            transform.Find("Tagged").GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = transform.position;
         }

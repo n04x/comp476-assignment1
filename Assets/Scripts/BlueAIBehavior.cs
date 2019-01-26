@@ -54,6 +54,7 @@ public class BlueAIBehavior : MonoBehaviour
         } else if(current_action == Actions.PURSUE) {
             Pursue();
         } else if(current_action == Actions.TAGGED) {
+            transform.Find("Tagged").GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = transform.position;
         }

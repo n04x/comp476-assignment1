@@ -8,6 +8,7 @@ public class HomeArea : MonoBehaviour
     private RedAIBehavior RedAIScript;
     public enum Team {RED, BLUE};
     public Team team;
+
     void OnTriggerEnter(Collider other) {
         if(team == Team.RED) {
             if(other.gameObject.tag == "Blue") {
@@ -22,5 +23,21 @@ public class HomeArea : MonoBehaviour
         } else {
             return;
         }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if(team ==Team.RED) {
+            if(other.gameObject.tag == "Blue") {
+                BlueAIScript = other.GetComponent<BlueAIBehavior>();
+                BlueAIScript.enemy_area = false;
+            } 
+        } else if(team == Team.BLUE) {
+            if(other.gameObject.tag == "Red") {
+                RedAIScript = other.GetComponent<RedAIBehavior>();
+                RedAIScript.enemy_area = false;
+            }
+        } else {
+            return;
+        }    
     }
 }
