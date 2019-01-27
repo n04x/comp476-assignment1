@@ -28,7 +28,7 @@ public class RedAIBehavior : MonoBehaviour
     // list of variables used for Wander().
     float max_wander_variance = 0.0f;
     float wander_offset =  200.0f;
-    float wander_radius = 100.0f;
+    float wander_radius = 45.0f;
     Vector3 current_random_point;
     float wander_timer_refresh = 0.0f; // check if the player has been tagged or not.
 

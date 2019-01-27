@@ -11,7 +11,9 @@ public class GameController : MonoBehaviour
     public GameObject red_flag;
     private RedAIBehavior red_script;
     private BlueAIBehavior blue_script;
-
+    
+    int min = 0;    // minimum value for random range
+    int max = 4;    // maximum value for random range
     enum Movement {WANDER, ARRIVE, FLEE, PURSUE, TAGGED}
     public GameObject red_tester;
     public GameObject blue_tester;
@@ -64,7 +66,7 @@ public class GameController : MonoBehaviour
         }
         // Select a player from RED team to attack
         if(!red_attacker) {
-             int index = Random.Range(0,3);
+             int index = Random.Range(min,max);
             red_script = red_team[index].GetComponent<RedAIBehavior>();
             if(red_script.currentAction() == (int) Movement.WANDER) {
                 red_script.setActions(1);
@@ -73,7 +75,7 @@ public class GameController : MonoBehaviour
         }
         // Select a player from BLUE team to attack
         if(!blue_attacker) {
-            int index = Random.Range(0,3);
+            int index = Random.Range(min,max);
             blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
             if(blue_script.currentAction() == (int) Movement.WANDER) {
                 blue_script.setActions(1);
@@ -109,14 +111,14 @@ public class GameController : MonoBehaviour
         }
         // Check if there is a RED player in the BLUE home area
         foreach (GameObject target in red_team) {
-            if(target.GetComponent<RedAIBehavior>().enemy_area && target.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
+            if(target.GetComponent<RedAIBehavior>().enemy_area && target.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
                 red_enemy_target = target;
             }
         }
 
         // Set the Pursue action to the RED player randomly selected
         if(!red_defender && blue_enemy_target != null) {
-            int index = Random.Range(0,3);
+            int index = Random.Range(min,max);
             red_script = red_team[index].GetComponent<RedAIBehavior>();
             if(red_script.currentAction() == (int) Movement.WANDER && !red_script.has_flag) {
                 red_script.setActions(3);
@@ -125,7 +127,7 @@ public class GameController : MonoBehaviour
         }
         // Set the Pursue action to the BLUE player randomly selected
         if(!blue_defender && red_enemy_target != null) {
-            int index = Random.Range(0,3);
+            int index = Random.Range(min,max);
             blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
             if(blue_script.currentAction() == (int) Movement.WANDER && !blue_script.has_flag) {
                 blue_script.setActions(3);
@@ -148,7 +150,7 @@ public class GameController : MonoBehaviour
             red_tagged = true;
         }
         if(red_tagged) {
-            int index = Random.Range(0,3);
+            int index = Random.Range(min,max);
             float closest_distance = float.PositiveInfinity;
             red_script = red_team[index].GetComponent<RedAIBehavior>();
             if(red_script.currentAction() == (int) Movement.WANDER) {
