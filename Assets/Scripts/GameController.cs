@@ -19,19 +19,22 @@ public class GameController : MonoBehaviour
     bool red_tagged = false;
     bool blue_tagged = false;
     
-    public Text game_over_text;
+    // variable used for Attacker().
     public bool red_attacker = false;
     public bool blue_attacker = false;
 
-    public bool red_rescue = false;
-    public bool blue_rescue = false;
+    // public bool red_rescue = false;
+    // public bool blue_rescue = false;
 
+    // variables used for Defender().
     public bool red_defender = false;
     public bool blue_defender = false;
 
     public bool red_flag_captured = false;
     public bool blue_flag_captured = false;
 
+    // variable used for GameOver().
+    public Text game_over_text;
     float restart_timer = 5.0f;
     public bool game_over = false;
     public bool blue_win = false;
@@ -133,14 +136,31 @@ public class GameController : MonoBehaviour
 
     void Rescue() {
         int tagged_counter = 0;
-        foreach (GameObject player in red_team)
-        {
+        List<GameObject> tagged_red_player = new List<GameObject>();
+        GameObject rescue_target = null;
+        foreach (GameObject player in red_team) {
             if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.TAGGED) {
                 tagged_counter++;
+                tagged_red_player.Add(player);
             }
         }
         if(tagged_counter > 0 && tagged_counter < 3) {
-            
+            red_tagged = true;
+        }
+        if(red_tagged) {
+            int index = Random.Range(0,3);
+            float closest_distance = float.PositiveInfinity;
+            red_script = red_team[index].GetComponent<RedAIBehavior>();
+            if(red_script.currentAction() == (int) Movement.WANDER) {
+                foreach (GameObject tagged_player in tagged_red_player) {
+                    if((tagged_player.transform.position - red_team[index].transform.position).magnitude < closest_distance) {
+                        closest_distance = (tagged_player.transform.position - red_team[index].transform.position).magnitude;
+                        rescue_target = tagged_player;
+                    }
+                }
+                red_script.setActions(1);
+                red_script.target = rescue_target;
+            }
         }
     }
     // team 1 = blue and team 2 = red.

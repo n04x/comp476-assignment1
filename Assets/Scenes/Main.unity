@@ -1194,7 +1194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &400726725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,12 +1210,7 @@ MonoBehaviour:
   target: {fileID: 0}
   tagged_aura: {fileID: 3238812}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 0.5
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
   current_action: 0
   enemy_area: 0
@@ -3302,7 +3297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1456281182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3318,12 +3313,7 @@ MonoBehaviour:
   target: {fileID: 0}
   tagged_aura: {fileID: 293799213}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 0.5
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
   current_action: 0
   enemy_area: 0
@@ -3500,7 +3490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1473037272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3516,13 +3506,9 @@ MonoBehaviour:
   target: {fileID: 316533109}
   tagged_aura: {fileID: 1951394434}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 3, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 1.1
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
+  speed: 2
   current_action: 0
   enemy_area: 0
   has_flag: 0
@@ -3967,7 +3953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1691885543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3983,13 +3969,9 @@ MonoBehaviour:
   target: {fileID: 316533109}
   tagged_aura: {fileID: 592951340}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 3, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 1.1
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
+  speed: 2
   current_action: 0
   enemy_area: 0
   has_flag: 0
@@ -4137,7 +4119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1828649903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4153,12 +4135,7 @@ MonoBehaviour:
   target: {fileID: 0}
   tagged_aura: {fileID: 37550360}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 0.5
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
   current_action: 0
   enemy_area: 0
@@ -4795,12 +4772,7 @@ MonoBehaviour:
   target: {fileID: 693529097}
   tagged_aura: {fileID: 0}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 0.5
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
   current_action: 1
   enemy_area: 0
@@ -5185,7 +5157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2127691989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5201,13 +5173,9 @@ MonoBehaviour:
   target: {fileID: 316533109}
   tagged_aura: {fileID: 0}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 3, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 1.1
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
+  speed: 2
   current_action: 1
   enemy_area: 0
   has_flag: 0
@@ -5370,7 +5338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2143191636
 Transform:
   m_ObjectHideFlags: 0
@@ -5419,13 +5387,9 @@ MonoBehaviour:
   target: {fileID: 316533109}
   tagged_aura: {fileID: 1811135247}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  velocity: {x: 3, y: 0, z: 0}
-  statisfaction_radius: 0.1
   time2target: 1
-  rotation_speed: 1.1
-  maximum_speed: 5
-  speed_cutoff: 0.5
   minimum_distance: 0.5
+  speed: 2
   current_action: 0
   enemy_area: 0
   has_flag: 0

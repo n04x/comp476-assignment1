@@ -29,12 +29,16 @@ public class HomeArea : MonoBehaviour
         if(team ==Team.RED) {
             if(other.gameObject.tag == "Blue") {
                 BlueAIScript = other.GetComponent<BlueAIBehavior>();
-                BlueAIScript.enemy_area = false;
+                if(BlueAIScript.has_flag == false) {
+                    BlueAIScript.enemy_area = false;
+                }
             } 
         } else if(team == Team.BLUE) {
             if(other.gameObject.tag == "Red") {
                 RedAIScript = other.GetComponent<RedAIBehavior>();
-                RedAIScript.enemy_area = false;
+                if(RedAIScript.has_flag == false) {
+                    RedAIScript.enemy_area = false;                
+                }
             }
         } else {
             return;
