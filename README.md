@@ -20,8 +20,8 @@ Attached to GameObject in Scene:
 This file contains the script for the AI Behavior of the blue team. The reason it is splitted it is because of easier maintenance and handle particularity if exists of each team. In the end, it is kind of a mistake to have two separate file (one for blue and one for red) since it leads to more overhead and duplication... this variable hold the distance from target: `float distance to target`  
 There is also 2 boolean as well: `public bool enemy_area = false;` and `public bool has_flag = false;`. There is also `public float speed = 2.0f` that will handle speed of actions. For all actions the characters use this `public GameObject target` and his transform will be used in all movement function.    
 Attached to GameObject in Scene:
-- For Red team: RedPlayer1, RedPlayer2, RedPlayer3, RedTester *testing purpose only, it is disable by default*    
-- For Blue team: BluePlayer1, BluePlayer2, BluePlayer3, BlueTester *testing purpose only, it is disable by default*
+- For Red team: RedPlayer1, RedPlayer2, RedPlayer3, RedPlayer4, RedTester *testing purpose only, it is disable by default*    
+- For Blue team: BluePlayer1, BluePlayer2, BluePlayer3, BluePlayer4, BlueTester *testing purpose only, it is disable by default*
 
 - Arrive()
   - `public float time2target = 1.0f`
@@ -63,7 +63,7 @@ This file contains these functions to determine Attacker, Defender, and if the g
 - Attacker(): have a random range between 0 and 3, to determine the character that is currently in `Actions.WANDER` and change it to `Actions.ARRIVE` to try to grab enemy flag.
 - Defender(): have a random range between 0 and 3, to determine the character that is currently in `Actions.WANDER` and change it to `Actions.PURSUE` to try to stop enemy player in their home area from grabbing the flag.
 - GameOver(): this is a mechanism implemented for game over and a restart, it will restart after 5 seconds, since the game is currently in inconsistency phase, it will behave differently after each restart and run. *might add a force restart mechanism as well*
-- Rescue(): *currently trying to implement it*
+- Rescue(): this function allow us to select a player to rescue another tagged player by going throught a list of currently tagged player and selected the closest player available to change its action from `Action.WANDER` to `Actions.ARRIVE`. Once a character has been selected to perform this task, it will set `public bool [color]_rescue = true`. Once the character collides with his tagged teamate (this behavior is explained in **RedAIBehavior.cs and BlueAIBehavior.cs**), the actions will be changed to `Actions.FLEE` toward their base, and `public bool [color]_rescue = false` to allow the Rescue() operations to start again to find another tagged player.
 - Once the Defender() action is over it will set the `[color]_defender = false`, and if the player is tagged it will also set both `[color]_attacker = false` and `[color_defender = false` with respect to the tagged condition. And then the Game Controller looks for another player to perform these actions if needed.
 Attached to GameObject in Scene:
 - GameController  
@@ -80,4 +80,4 @@ This file handle all Winning Condition and the proper actions when the player ar
 - OnTriggerEnter(Collider other): This will be triggered and perform the Game Win for the team that bring the flag to its home area. It will also notify the **GameController.cs** to do these change: `game_controller.game_over = true` and `game_controller.[color]_win = true` and the game is ended now. The restart timer is started.
 
 ## Issues    
-*to be done*
+There is few issues with this game that needed to be improved in future, first of all, there might pathing issue, since the characters has random Wander movement, it might end up in enemy area and still continue to WANDER instead of arrive and become a target for enemy character. This "issue" will be leaved there since it could be used as a "bait" for other character to pursue him and tag him. Allowing his teamate to capture the flag. Since there is a lot of randomization process happening in the game, some run will cause trouble as well. There might be some run where everyone is stalled and nobody is doing anything (rarely happens, only happens once after multiple runs).  
