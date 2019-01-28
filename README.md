@@ -5,7 +5,7 @@ Presented by: Thomas Backs
 ID: 27554524    
 ***
 ## Introduction    
-To explain this program, here a detailed information of each file, basically to swap between different action I used an enumator named Actions which contains: WANDER, ARRIVE, FLEE, PURSUE, TAGGED, RESCUE. There is also another enumerator named Team which contains: RED, BLUE. By default all characters Actions is set to WANDER, for the team, it is setted in the Scene depending to the object it is attached to.    
+To explain this program, here a detailed information of each file, basically to swap between different action I used an enumator named Actions which contains: WANDER, ARRIVE, FLEE, PURSUE, TAGGED, RESCUE. There is also another enumerator named Team which contains: RED, BLUE. By default all characters Actions is set to WANDER, for the team, it is setted in the Scene depending to the object it is attached to. To end the game press __ESC__ button.    
 
 ## Scripts file explanation    
 
