@@ -147,7 +147,9 @@ public class RedAIBehavior : MonoBehaviour
         } else if(other.gameObject.tag == "Red" && current_action == Actions.TAGGED) {
             target = GameObject.FindWithTag("BlueBase");
             current_action = Actions.FLEE;
+            other.gameObject.GetComponent<RedAIBehavior>().setActions(2);
             tagged_aura.GetComponent<MeshRenderer>().enabled = false;
+            game_controller.red_rescue = false;
         } else {
             return;
         }

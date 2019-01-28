@@ -25,8 +25,9 @@ public class GameController : MonoBehaviour
     public bool red_attacker = false;
     public bool blue_attacker = false;
 
-    // public bool red_rescue = false;
-    // public bool blue_rescue = false;
+    // variable used for Rescue().
+    public bool red_rescue = false;
+    public bool blue_rescue = false;
 
     // variables used for Defender().
     public bool red_defender = false;
@@ -46,6 +47,7 @@ public class GameController : MonoBehaviour
     {
         Attacker();
         Defender();
+        Rescue();
         if(game_over) {
             GameOver();
         }
@@ -136,36 +138,76 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // =================================================================
+    // Function to select a character to rescue the tagged characters.
+    // =================================================================
     void Rescue() {
-        int tagged_counter = 0;
+        int red_tagged_counter = 0;
+        int blue_tagged_counter = 0;
         List<GameObject> tagged_red_player = new List<GameObject>();
-        GameObject rescue_target = null;
+        List<GameObject> tagged_blue_player = new List<GameObject>();
+        GameObject rescue_target_red = null;
+        GameObject rescue_target_blue = null;
+
+        // Rescue a red player!
         foreach (GameObject player in red_team) {
             if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.TAGGED) {
-                tagged_counter++;
+                red_tagged_counter++;
                 tagged_red_player.Add(player);
             }
         }
-        if(tagged_counter > 0 && tagged_counter < 3) {
+        if(red_tagged_counter > 0) {
             red_tagged = true;
+        } else {
+            red_tagged = false;
         }
-        if(red_tagged) {
+        if(red_tagged && !red_rescue) {
             int index = Random.Range(min,max);
-            float closest_distance = float.PositiveInfinity;
+            float closest_distance_red = float.PositiveInfinity;
             red_script = red_team[index].GetComponent<RedAIBehavior>();
             if(red_script.currentAction() == (int) Movement.WANDER) {
                 foreach (GameObject tagged_player in tagged_red_player) {
-                    if((tagged_player.transform.position - red_team[index].transform.position).magnitude < closest_distance) {
-                        closest_distance = (tagged_player.transform.position - red_team[index].transform.position).magnitude;
-                        rescue_target = tagged_player;
+                    if((tagged_player.transform.position - red_team[index].transform.position).magnitude < closest_distance_red) {
+                        closest_distance_red = (tagged_player.transform.position - red_team[index].transform.position).magnitude;
+                        rescue_target_red = tagged_player;                        
                     }
                 }
                 red_script.setActions(1);
-                red_script.target = rescue_target;
+                red_script.target = rescue_target_red;
+                red_rescue = true;
+            }
+        }
+
+        // Rescue a blue player!
+        foreach (GameObject player in blue_team) {
+            if(player.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.TAGGED) {
+                blue_tagged_counter++;
+                tagged_blue_player.Add(player);
+            }
+        }
+        if(blue_tagged_counter > 0) {
+            blue_tagged = true;
+        } else {
+            blue_tagged = false;
+        }
+        if(blue_tagged && !blue_rescue) {
+            int index = Random.Range(min,max);
+            float closest_distance_blue = float.PositiveInfinity;
+            blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
+            if(blue_script.currentAction() == (int) Movement.WANDER) {
+                foreach (GameObject tagged_player in tagged_blue_player) {
+                    if((tagged_player.transform.position - blue_team[index].transform.position).magnitude < closest_distance_blue) {
+                        closest_distance_blue = (tagged_player.transform.position - blue_team[index].transform.position).magnitude;
+                        rescue_target_blue = tagged_player;                        
+                    }
+                }
+                blue_script.setActions(1);
+                blue_script.target = rescue_target_blue;
+                blue_rescue = true;
             }
         }
     }
-    // team 1 = blue and team 2 = red.
+
     public void GameOver() {
         restart_timer -= Time.deltaTime;
         if(restart_timer < 0) {
