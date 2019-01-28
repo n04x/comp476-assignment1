@@ -79,7 +79,9 @@ public class BlueAIBehavior : MonoBehaviour
             Arrive();
         }
     }
-
+    // =================================================================
+    // Arrive movement function
+    // =================================================================
     void Arrive() {
         distance_from_target = (target.transform.position - transform.position).magnitude;
         if(distance_from_target > near_radius) {
@@ -92,7 +94,9 @@ public class BlueAIBehavior : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
-
+    // =================================================================
+    // Flee movement function
+    // =================================================================
     void Flee() {
         distance_from_target = (target.transform.position - transform.position).magnitude;
         if(distance_from_target > minimum_distance) {
@@ -102,7 +106,9 @@ public class BlueAIBehavior : MonoBehaviour
             GetComponent<Rigidbody>().velocity = -((target.transform.position - transform.position).normalized * speed);         
         }
     }
-
+    // =================================================================
+    // Wander movement function
+    // =================================================================
     void Wander() {
         wander_timer_refresh -= Time.deltaTime;
         if(wander_timer_refresh < 0) {
@@ -119,13 +125,17 @@ public class BlueAIBehavior : MonoBehaviour
         Vector3 wander_circle_point = wander_radius * (new Vector3(Mathf.Cos(Random.Range(max_wander_variance, Mathf.PI - max_wander_variance)), 0.0f, Mathf.Sin(Random.Range(max_wander_variance, Mathf.PI - max_wander_variance))));
         return (wander_circle_point + wander_circle_center);
     }
-
+    // =================================================================
+    // Pursue movement function
+    // =================================================================
     void Pursue() {
         distance_from_target = (target.transform.position - transform.position).magnitude;
         transform.LookAt(target.transform);
         GetComponent<Rigidbody>().velocity = ((target.transform.position - transform.position).normalized * speed + target.GetComponent<Rigidbody>().velocity);
     }
-
+    // =================================================================
+    // Handle all collision for this characters
+    // =================================================================
     void OnCollisionEnter(Collision other) {
         if(has_flag && other.gameObject.tag == "Blue") {
             return;
@@ -165,10 +175,17 @@ public class BlueAIBehavior : MonoBehaviour
             return;
         }
     }
-
+    // =================================================================
+    // public function named currentAction that return the integer value 
+    // of the current action of the character.
+    // =================================================================    
     public int currentAction() {
         return (int) current_action;
     }
+    // =================================================================
+    // public function named setAction that take an integer value and
+    // set it to the current action of the character.
+    // =================================================================
     public void setActions(int action) {
         if(action == 1) {
             current_action = Actions.ARRIVE;

@@ -1,0 +1,5 @@
+Important notice:
+The current build is under linux, please rebuild for windows version.
+
+The project should work properly under Windows environment since it has been tested.
+

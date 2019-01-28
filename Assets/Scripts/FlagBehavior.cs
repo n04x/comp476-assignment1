@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// =================================================================
+// handle all behavior involved the Flag for both team. The right 
+// team choice is chosen by the public enumerator Team in the Scene
+// =================================================================
 
 public class FlagBehavior : MonoBehaviour
 {
@@ -44,7 +48,10 @@ public class FlagBehavior : MonoBehaviour
             game_controller.red_flag_captured = false;
         }
     }
-
+    // =================================================================
+    // OnTriggerEnter to do the proper action when an character captures
+    // the flag and when the character drops the flag as well
+    // =================================================================
     void OnTriggerEnter(Collider other) {
         if(team == Team.BLUE) {
             if(other.gameObject.tag == "Red") {

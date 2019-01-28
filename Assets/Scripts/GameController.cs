@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+// =================================================================
+// This class handles all actions and events that is shared during
+// the game, it also handle all randomization events that occurs.
+// it will also check the current state of the game.
+// =================================================================
 public class GameController : MonoBehaviour
 {
     public GameObject[] red_team;
@@ -46,6 +50,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // =================================================================
+        // Use ESC Key to end the game.
+        // =================================================================
         if(Input.GetKey(KeyCode.Escape)) {
             SceneManager.LoadScene(0);
         }
@@ -152,8 +159,9 @@ public class GameController : MonoBehaviour
         List<GameObject> tagged_blue_player = new List<GameObject>();
         GameObject rescue_target_red = null;
         GameObject rescue_target_blue = null;
-
+        // =================================================================
         // Rescue a red player!
+        // =================================================================
         foreach (GameObject player in red_team) {
             if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.TAGGED) {
                 red_tagged_counter++;
@@ -186,8 +194,9 @@ public class GameController : MonoBehaviour
                 red_rescue = true;
             }
         }
-
+        // =================================================================
         // Rescue a blue player!
+        // =================================================================
         foreach (GameObject player in blue_team) {
             if(player.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.TAGGED) {
                 blue_tagged_counter++;
@@ -223,7 +232,10 @@ public class GameController : MonoBehaviour
         // check if everyone is tagged.
         WholeTeamTagged(red_tagged_counter, blue_tagged_counter);
     }
-
+    // =================================================================
+    // Function named WholeTeamTagged that take two integers to 
+    // check if the whole team has been tagged and apply the proper action
+    // =================================================================
     void WholeTeamTagged(int red_counter, int blue_counter) {
         if(red_counter > 3 && blue_counter > 3) {
             game_over = true;
@@ -235,6 +247,9 @@ public class GameController : MonoBehaviour
             red_win = true;
         }
     }
+    // =================================================================
+    // Function named GameOver for when the game end.
+    // =================================================================
     public void GameOver() {
         restart_timer -= Time.deltaTime;
         if(restart_timer < 0) {

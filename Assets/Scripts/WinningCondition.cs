@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// =================================================================
+// This script is used to check if the winning condition for each
+// team (which are selected in Scene view) are respected before 
+// setting game_over to true.
+// =================================================================
 public class WinningCondition : MonoBehaviour
 {
     public enum Team {RED, BLUE}
@@ -17,7 +21,10 @@ public class WinningCondition : MonoBehaviour
 			Debug.Log("cant find 'GameController' script");
 		}
     }
-
+    // =================================================================
+    // Check if the player that collide with game object [color]FlagHomePosition
+    // has the flag and is the right team as well!
+    // =================================================================    
     private void OnTriggerEnter(Collider other) {
         if(team == Team.BLUE) {
             if(other.gameObject.tag == "Blue" && other.gameObject.GetComponent<BlueAIBehavior>().has_flag) {
