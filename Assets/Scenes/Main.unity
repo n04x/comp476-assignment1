@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 316533109}
+  target: {fileID: 0}
   tagged_aura: {fileID: 1113004125}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
   time2target: 1
@@ -1960,6 +1960,8 @@ MonoBehaviour:
   blue_tester: {fileID: 2127691988}
   red_attacker: 0
   blue_attacker: 0
+  red_rescue: 0
+  blue_rescue: 0
   red_defender: 0
   blue_defender: 0
   red_flag_captured: 0
@@ -3988,7 +3990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 316533109}
+  target: {fileID: 0}
   tagged_aura: {fileID: 1951394434}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
   time2target: 1
@@ -4605,7 +4607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 316533109}
+  target: {fileID: 0}
   tagged_aura: {fileID: 592951340}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
   time2target: 1
@@ -6331,7 +6333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 316533109}
+  target: {fileID: 0}
   tagged_aura: {fileID: 1811135247}
   target_rotation: {x: 0, y: 0, z: 0, w: 0}
   time2target: 1

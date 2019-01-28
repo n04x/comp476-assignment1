@@ -30,23 +30,18 @@ public class BlueAIBehavior : MonoBehaviour
     float wander_offset =  200.0f;
     float wander_radius = 45.0f;
     Vector3 current_random_point;
-    float wander_timer_refresh = 0.0f;
-
-    // float maximum_distance = 10.0f;
-
+    float wander_timer_refresh = 0.0f; // check if the player has been tagged or not.
 
     public float speed = 2.0f;
 
     // Enumerator used for actions
-    public enum Actions {WANDER, ARRIVE, FLEE, PURSUE, TAGGED};
+    public enum Actions {WANDER, ARRIVE, FLEE, PURSUE, TAGGED, RESCUE};
     public Actions current_action;
 
     public bool enemy_area = false;
     public bool has_flag = false;
 
-
     void Start() {
-
         GameObject game_controller_object = GameObject.FindWithTag("GameController");
         if(game_controller_object != null) {
 			game_controller = game_controller_object.GetComponent<GameController>();
@@ -71,6 +66,7 @@ public class BlueAIBehavior : MonoBehaviour
                 Flee();            
             } else {
                 current_action = Actions.WANDER;
+                target = null;
                 flee_time = 1.0f;
             }
         } else if(current_action == Actions.PURSUE) {
@@ -79,6 +75,8 @@ public class BlueAIBehavior : MonoBehaviour
             tagged_aura.GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = transform.position;
+        } else if(current_action == Actions.PURSUE) {
+            Arrive();
         }
     }
 
@@ -128,8 +126,10 @@ public class BlueAIBehavior : MonoBehaviour
         GetComponent<Rigidbody>().velocity = ((target.transform.position - transform.position).normalized * speed + target.GetComponent<Rigidbody>().velocity);
     }
 
-
     void OnCollisionEnter(Collision other) {
+        if(has_flag && other.gameObject.tag == "Blue") {
+            return;
+        }
         if(other.gameObject.tag == "Red" && enemy_area) {
             if(has_flag) {
                 has_flag = false;
@@ -143,20 +143,29 @@ public class BlueAIBehavior : MonoBehaviour
             game_controller.blue_attacker = false;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         } else if(other.gameObject.tag == "Red") {
+            if(current_action == Actions.PURSUE) {
+                game_controller.red_defender = false;
+            } else if(current_action == Actions.ARRIVE) {
+                game_controller.red_attacker = false;
+            } else if(current_action == Actions.RESCUE) {
+                game_controller.red_rescue = false;
+            }
             current_action = Actions.FLEE;
             target = other.gameObject;
-            game_controller.red_defender = false;
-            game_controller.red_attacker = false;
         } else if(other.gameObject.tag == "Blue" && current_action == Actions.TAGGED) {
             target = GameObject.FindWithTag("RedBase");
             current_action = Actions.FLEE;
-            other.gameObject.GetComponent<BlueAIBehavior>().setActions(2);
+            if(other.gameObject.GetComponent<BlueAIBehavior>().currentAction() == (int) Actions.RESCUE) {
+                other.gameObject.GetComponent<BlueAIBehavior>().setActions(2);
+                game_controller.blue_rescue = false;
+            }
             tagged_aura.GetComponent<MeshRenderer>().enabled = false;
-            game_controller.blue_rescue = false;
         }else {
+            Physics.IgnoreCollision(other.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
             return;
         }
     }
+
     public int currentAction() {
         return (int) current_action;
     }
@@ -169,6 +178,10 @@ public class BlueAIBehavior : MonoBehaviour
             current_action = Actions.PURSUE;            
         } else if(action == 4) {
             current_action = Actions.TAGGED;
+        } else if(action == 5) {
+            current_action = Actions.RESCUE;
+        } else {
+            current_action = Actions.WANDER;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameController : MonoBehaviour
     
     int min = 0;    // minimum value for random range
     int max = 4;    // maximum value for random range
-    enum Movement {WANDER, ARRIVE, FLEE, PURSUE, TAGGED}
+    enum Movement {WANDER, ARRIVE, FLEE, PURSUE, TAGGED, RESCUE}
     public GameObject red_tester;
     public GameObject blue_tester;
     
@@ -45,6 +46,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Escape)) {
+            SceneManager.LoadScene(0);
+        }
         Attacker();
         Defender();
         Rescue();
@@ -161,6 +165,11 @@ public class GameController : MonoBehaviour
         } else {
             red_tagged = false;
         }
+        foreach (GameObject rescuer in red_team) {
+            if(rescuer.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.RESCUE) {
+                red_rescue = true;
+            }
+        }
         if(red_tagged && !red_rescue) {
             int index = Random.Range(min,max);
             float closest_distance_red = float.PositiveInfinity;
@@ -172,7 +181,7 @@ public class GameController : MonoBehaviour
                         rescue_target_red = tagged_player;                        
                     }
                 }
-                red_script.setActions(1);
+                red_script.setActions(5);
                 red_script.target = rescue_target_red;
                 red_rescue = true;
             }
@@ -190,6 +199,11 @@ public class GameController : MonoBehaviour
         } else {
             blue_tagged = false;
         }
+        foreach (GameObject rescuer in blue_team) {
+            if(rescuer.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.RESCUE) {
+                blue_rescue = true;
+            }
+        }
         if(blue_tagged && !blue_rescue) {
             int index = Random.Range(min,max);
             float closest_distance_blue = float.PositiveInfinity;
@@ -201,13 +215,26 @@ public class GameController : MonoBehaviour
                         rescue_target_blue = tagged_player;                        
                     }
                 }
-                blue_script.setActions(1);
+                blue_script.setActions(5);
                 blue_script.target = rescue_target_blue;
                 blue_rescue = true;
             }
         }
+        // check if everyone is tagged.
+        WholeTeamTagged(red_tagged_counter, blue_tagged_counter);
     }
 
+    void WholeTeamTagged(int red_counter, int blue_counter) {
+        if(red_counter > 3 && blue_counter > 3) {
+            game_over = true;
+        } else if(red_counter > 3) {
+            game_over = true;
+            blue_win = true;
+        } else if(blue_counter > 3) {
+            game_over = true;
+            red_win = true;
+        }
+    }
     public void GameOver() {
         restart_timer -= Time.deltaTime;
         if(restart_timer < 0) {
@@ -220,6 +247,8 @@ public class GameController : MonoBehaviour
             // red team win
             game_over_text.text = "Red team win! game restart in: " + (int) restart_timer;
 
+        } else {
+            game_over_text.text = "Game ended with draw! game restart in: " + (int) restart_timer;
         }
     }
 }
