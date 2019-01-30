@@ -8,8 +8,8 @@ using UnityEngine;
 // =================================================================
 public class HomeArea : MonoBehaviour
 {
-    private BlueAIBehavior BlueAIScript;
-    private RedAIBehavior RedAIScript;
+    private AIBehaviour ai_script;
+    // private AIBehaviour ai_script;
     public enum Team {RED, BLUE};
     public Team team;
     // =================================================================
@@ -18,13 +18,13 @@ public class HomeArea : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(team == Team.RED) {
             if(other.gameObject.tag == "Blue") {
-                BlueAIScript = other.GetComponent<BlueAIBehavior>();
-                BlueAIScript.enemy_area = true;
+                ai_script = other.GetComponent<AIBehaviour>();
+                ai_script.enemy_area = true;
             }
         } else if(team == Team.BLUE) {
             if(other.gameObject.tag == "Red") {
-                RedAIScript = other.GetComponent<RedAIBehavior>();
-                RedAIScript.enemy_area = true;
+                ai_script = other.GetComponent<AIBehaviour>();
+                ai_script.enemy_area = true;
             }
         } else {
             return;
@@ -36,16 +36,16 @@ public class HomeArea : MonoBehaviour
     void OnTriggerExit(Collider other) {
         if(team ==Team.RED) {
             if(other.gameObject.tag == "Blue") {
-                BlueAIScript = other.GetComponent<BlueAIBehavior>();
-                if(BlueAIScript.has_flag == false) {
-                    BlueAIScript.enemy_area = false;
+                ai_script = other.GetComponent<AIBehaviour>();
+                if(ai_script.has_flag == false) {
+                    ai_script.enemy_area = false;
                 }
             } 
         } else if(team == Team.BLUE) {
             if(other.gameObject.tag == "Red") {
-                RedAIScript = other.GetComponent<RedAIBehavior>();
-                if(RedAIScript.has_flag == false) {
-                    RedAIScript.enemy_area = false;                
+                ai_script = other.GetComponent<AIBehaviour>();
+                if(ai_script.has_flag == false) {
+                    ai_script.enemy_area = false;                
                 }
             }
         } else {

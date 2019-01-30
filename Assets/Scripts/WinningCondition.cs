@@ -27,14 +27,14 @@ public class WinningCondition : MonoBehaviour
     // =================================================================    
     private void OnTriggerEnter(Collider other) {
         if(team == Team.BLUE) {
-            if(other.gameObject.tag == "Blue" && other.gameObject.GetComponent<BlueAIBehavior>().has_flag) {
+            if(other.gameObject.tag == "Blue" && other.gameObject.GetComponent<AIBehaviour>().has_flag) {
                 game_controller.game_over = true;
                 game_controller.blue_win = true;
             } else {
                 return;
             }
         } else if(team == Team.RED) {
-            if(other.gameObject.tag == "Red" && other.gameObject.GetComponent<RedAIBehavior>().has_flag) {
+            if(other.gameObject.tag == "Red" && other.gameObject.GetComponent<AIBehaviour>().has_flag) {
                 game_controller.game_over = true;
                 game_controller.red_win = true;
             } else {

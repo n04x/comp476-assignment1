@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366968, g: 0.48429632, b: 0.56454587, a: 1}
+  m_IndirectSpecularColor: {r: 0.43669674, g: 0.48429632, b: 0.56454587, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 220254061}
   - component: {fileID: 220254060}
   - component: {fileID: 220254059}
-  - component: {fileID: 220254058}
+  - component: {fileID: 220254062}
   m_Layer: 0
   m_Name: BluePlayer4
   m_TagString: Blue
@@ -901,27 +901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &220254058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220254057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 1113004125}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  speed: 2
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &220254059
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -936,7 +915,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &220254060
 CapsuleCollider:
@@ -971,6 +950,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &220254062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220254057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 1113004125}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 1
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &229550439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,7 +1060,7 @@ GameObject:
   - component: {fileID: 246282312}
   - component: {fileID: 246282311}
   - component: {fileID: 246282310}
-  - component: {fileID: 246282309}
+  - component: {fileID: 246282313}
   m_Layer: 0
   m_Name: RedPlayer4
   m_TagString: Red
@@ -1067,26 +1068,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &246282309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246282308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1003e296840fa33cf851e24f1b6ff09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 1984797624}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &246282310
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1101,7 +1082,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &246282311
 CapsuleCollider:
@@ -1136,6 +1117,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &246282313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246282308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 1984797624}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 0
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &272006746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,7 +1444,7 @@ GameObject:
   - component: {fileID: 400726728}
   - component: {fileID: 400726727}
   - component: {fileID: 400726726}
-  - component: {fileID: 400726725}
+  - component: {fileID: 400726729}
   m_Layer: 0
   m_Name: RedPlayer1
   m_TagString: Red
@@ -1449,26 +1452,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &400726725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400726724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1003e296840fa33cf851e24f1b6ff09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 3238812}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &400726726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1483,7 +1466,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &400726727
 CapsuleCollider:
@@ -1518,6 +1501,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400726729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400726724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 3238812}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 0
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &424638841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,7 +3782,7 @@ GameObject:
   - component: {fileID: 1456281185}
   - component: {fileID: 1456281184}
   - component: {fileID: 1456281183}
-  - component: {fileID: 1456281182}
+  - component: {fileID: 1456281186}
   m_Layer: 0
   m_Name: RedPlayer3
   m_TagString: Red
@@ -3785,26 +3790,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1456281182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456281181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1003e296840fa33cf851e24f1b6ff09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 293799213}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &1456281183
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3819,7 +3804,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &1456281184
 CapsuleCollider:
@@ -3854,6 +3839,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1456281186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456281181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 293799213}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 0
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &1473006363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,7 +3977,7 @@ GameObject:
   - component: {fileID: 1473037275}
   - component: {fileID: 1473037274}
   - component: {fileID: 1473037273}
-  - component: {fileID: 1473037272}
+  - component: {fileID: 1473037276}
   m_Layer: 0
   m_Name: BluePlayer3
   m_TagString: Blue
@@ -3978,27 +3985,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1473037272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473037271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 1951394434}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  speed: 2
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &1473037273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4013,7 +3999,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &1473037274
 CapsuleCollider:
@@ -4048,6 +4034,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1473037276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473037271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 1951394434}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 1
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &1502474828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4587,7 +4595,7 @@ GameObject:
   - component: {fileID: 1691885546}
   - component: {fileID: 1691885545}
   - component: {fileID: 1691885544}
-  - component: {fileID: 1691885543}
+  - component: {fileID: 1691885547}
   m_Layer: 0
   m_Name: BluePlayer2
   m_TagString: Blue
@@ -4595,27 +4603,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1691885543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691885542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 592951340}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  speed: 2
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &1691885544
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4630,7 +4617,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &1691885545
 CapsuleCollider:
@@ -4665,6 +4652,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691885547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691885542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 592951340}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 1
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &1811135247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4753,7 +4762,7 @@ GameObject:
   - component: {fileID: 1828649906}
   - component: {fileID: 1828649905}
   - component: {fileID: 1828649904}
-  - component: {fileID: 1828649903}
+  - component: {fileID: 1828649907}
   m_Layer: 0
   m_Name: RedPlayer2
   m_TagString: Red
@@ -4761,26 +4770,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1828649903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828649902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1003e296840fa33cf851e24f1b6ff09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagged_aura: {fileID: 37550360}
-  target_rotation: {x: 0, y: 0, z: 0, w: 0}
-  time2target: 1
-  minimum_distance: 0.5
-  current_action: 0
-  enemy_area: 0
-  has_flag: 0
 --- !u!54 &1828649904
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4795,7 +4784,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!136 &1828649905
 CapsuleCollider:
@@ -4830,6 +4819,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1828649907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828649902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagged_aura: {fileID: 37550360}
+  target_rotation: {x: 0, y: 0, z: 0, w: 0}
+  time2target: 1
+  minimum_distance: 0.5
+  speed: 2
+  current_action: 0
+  team: 0
+  enemy_area: 0
+  has_flag: 0
 --- !u!1 &1838418208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6330,7 +6341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143191635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5cd25ef86b2b9c4793e9b90ed13bd9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 51ea39ffb6b9253c4960b12b91fe91ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
@@ -6340,6 +6351,7 @@ MonoBehaviour:
   minimum_distance: 0.5
   speed: 2
   current_action: 0
+  team: 1
   enemy_area: 0
   has_flag: 0
 --- !u!54 &2143191639
@@ -6356,5 +6368,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 36
   m_CollisionDetection: 0

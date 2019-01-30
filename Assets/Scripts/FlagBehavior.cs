@@ -28,12 +28,12 @@ public class FlagBehavior : MonoBehaviour
         if(flag_captured) {
             if(team == Team.BLUE) {
                 transform.position = (enemy.transform.position - new Vector3(1.0f, 0.0f, 0.0f));
-                if(enemy.GetComponent<RedAIBehavior>().currentAction() == 4) {
+                if(enemy.GetComponent<AIBehaviour>().currentAction() == 4) {
                     flag_captured = false;
                 }
             } else if(team == Team.RED) {
                 transform.position = (enemy.transform.position + new Vector3(1.0f, 0.0f, 0.0f));
-                 if(enemy.GetComponent<BlueAIBehavior>().currentAction() == 4) {
+                 if(enemy.GetComponent<AIBehaviour>().currentAction() == 4) {
                     flag_captured = false;
                 }
             }
@@ -57,16 +57,16 @@ public class FlagBehavior : MonoBehaviour
             if(other.gameObject.tag == "Red") {
                 game_controller.blue_flag_captured = true;
                 flag_captured = true;
-                other.gameObject.GetComponent<RedAIBehavior>().has_flag = true;
-                other.gameObject.GetComponent<RedAIBehavior>().target = GameObject.FindGameObjectWithTag("RedBase");
+                other.gameObject.GetComponent<AIBehaviour>().has_flag = true;
+                other.gameObject.GetComponent<AIBehaviour>().target = GameObject.FindGameObjectWithTag("RedBase");
                 enemy = other.gameObject;
             }
         } else if(team == Team.RED) {
             if(other.gameObject.tag == "Blue") {
                 game_controller.red_flag_captured = true;
                 flag_captured = true;
-                other.gameObject.GetComponent<BlueAIBehavior>().has_flag = true;
-                other.gameObject.GetComponent<BlueAIBehavior>().target = GameObject.FindGameObjectWithTag("BlueBase");
+                other.gameObject.GetComponent<AIBehaviour>().has_flag = true;
+                other.gameObject.GetComponent<AIBehaviour>().target = GameObject.FindGameObjectWithTag("BlueBase");
                 enemy = other.gameObject;
             }
         } else {

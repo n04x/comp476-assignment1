@@ -14,8 +14,9 @@ public class GameController : MonoBehaviour
     public GameObject[] blue_team;
     public GameObject blue_flag;
     public GameObject red_flag;
-    private RedAIBehavior red_script;
-    private BlueAIBehavior blue_script;
+    private AIBehaviour ai_script;
+    // private AIBehaviour ai_script;
+    // private AIBehaviour ai_script;
     
     int min = 0;    // minimum value for random range
     int max = 4;    // maximum value for random range
@@ -68,31 +69,31 @@ public class GameController : MonoBehaviour
     // =================================================================
     void Attacker() {
         foreach (GameObject player in red_team) {
-            if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.ARRIVE) {
                 red_attacker = true;
             }
         }
         foreach (GameObject player in blue_team) {
-            if(player.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.ARRIVE) {
                 blue_attacker = true;
             }
         }
         // Select a player from RED team to attack
         if(!red_attacker) {
              int index = Random.Range(min,max);
-            red_script = red_team[index].GetComponent<RedAIBehavior>();
-            if(red_script.currentAction() == (int) Movement.WANDER) {
-                red_script.setActions(1);
-                red_script.target = blue_flag;
+            ai_script = red_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER) {
+                ai_script.setActions(1);
+                ai_script.target = blue_flag;
             }
         }
         // Select a player from BLUE team to attack
         if(!blue_attacker) {
             int index = Random.Range(min,max);
-            blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
-            if(blue_script.currentAction() == (int) Movement.WANDER) {
-                blue_script.setActions(1);
-                blue_script.target = red_flag;
+            ai_script = blue_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER) {
+                ai_script.setActions(1);
+                ai_script.target = red_flag;
             }
         }
     }
@@ -105,26 +106,26 @@ public class GameController : MonoBehaviour
         GameObject blue_enemy_target = null;
         // Check if there is already a pursuer for RED team
         foreach (GameObject player in red_team) {
-            if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.PURSUE) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.PURSUE) {
                 red_defender = true;
             }
         }
 
         // Check if there is already a pursuer for BLUE team
         foreach (GameObject player in blue_team) {
-            if(player.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.PURSUE) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.PURSUE) {
                 blue_defender = true;
             }
         }
         // Check if there is a BLUE player in the RED home area
         foreach (GameObject target in blue_team) {
-            if(target.GetComponent<BlueAIBehavior>().enemy_area && target.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
+            if(target.GetComponent<AIBehaviour>().enemy_area && target.GetComponent<AIBehaviour>().currentAction() == (int) Movement.ARRIVE) {
                 blue_enemy_target = target;
             }
         }
         // Check if there is a RED player in the BLUE home area
         foreach (GameObject target in red_team) {
-            if(target.GetComponent<RedAIBehavior>().enemy_area && target.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.ARRIVE) {
+            if(target.GetComponent<AIBehaviour>().enemy_area && target.GetComponent<AIBehaviour>().currentAction() == (int) Movement.ARRIVE) {
                 red_enemy_target = target;
             }
         }
@@ -132,19 +133,19 @@ public class GameController : MonoBehaviour
         // Set the Pursue action to the RED player randomly selected
         if(!red_defender && blue_enemy_target != null) {
             int index = Random.Range(min,max);
-            red_script = red_team[index].GetComponent<RedAIBehavior>();
-            if(red_script.currentAction() == (int) Movement.WANDER && !red_script.has_flag) {
-                red_script.setActions(3);
-                red_script.target = blue_enemy_target;
+            ai_script = red_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER && !ai_script.has_flag) {
+                ai_script.setActions(3);
+                ai_script.target = blue_enemy_target;
             }
         }
         // Set the Pursue action to the BLUE player randomly selected
         if(!blue_defender && red_enemy_target != null) {
             int index = Random.Range(min,max);
-            blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
-            if(blue_script.currentAction() == (int) Movement.WANDER && !blue_script.has_flag) {
-                blue_script.setActions(3);
-                blue_script.target = red_enemy_target;
+            ai_script = blue_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER && !ai_script.has_flag) {
+                ai_script.setActions(3);
+                ai_script.target = red_enemy_target;
             }
         }
     }
@@ -163,7 +164,7 @@ public class GameController : MonoBehaviour
         // Rescue a red player!
         // =================================================================
         foreach (GameObject player in red_team) {
-            if(player.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.TAGGED) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.TAGGED) {
                 red_tagged_counter++;
                 tagged_red_player.Add(player);
             }
@@ -174,23 +175,23 @@ public class GameController : MonoBehaviour
             red_tagged = false;
         }
         foreach (GameObject rescuer in red_team) {
-            if(rescuer.GetComponent<RedAIBehavior>().currentAction() == (int) Movement.RESCUE) {
+            if(rescuer.GetComponent<AIBehaviour>().currentAction() == (int) Movement.RESCUE) {
                 red_rescue = true;
             }
         }
         if(red_tagged && !red_rescue) {
             int index = Random.Range(min,max);
             float closest_distance_red = float.PositiveInfinity;
-            red_script = red_team[index].GetComponent<RedAIBehavior>();
-            if(red_script.currentAction() == (int) Movement.WANDER) {
+            ai_script = red_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER) {
                 foreach (GameObject tagged_player in tagged_red_player) {
                     if((tagged_player.transform.position - red_team[index].transform.position).magnitude < closest_distance_red) {
                         closest_distance_red = (tagged_player.transform.position - red_team[index].transform.position).magnitude;
                         rescue_target_red = tagged_player;                        
                     }
                 }
-                red_script.setActions(5);
-                red_script.target = rescue_target_red;
+                ai_script.setActions(5);
+                ai_script.target = rescue_target_red;
                 red_rescue = true;
             }
         }
@@ -198,7 +199,7 @@ public class GameController : MonoBehaviour
         // Rescue a blue player!
         // =================================================================
         foreach (GameObject player in blue_team) {
-            if(player.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.TAGGED) {
+            if(player.GetComponent<AIBehaviour>().currentAction() == (int) Movement.TAGGED) {
                 blue_tagged_counter++;
                 tagged_blue_player.Add(player);
             }
@@ -209,23 +210,23 @@ public class GameController : MonoBehaviour
             blue_tagged = false;
         }
         foreach (GameObject rescuer in blue_team) {
-            if(rescuer.GetComponent<BlueAIBehavior>().currentAction() == (int) Movement.RESCUE) {
+            if(rescuer.GetComponent<AIBehaviour>().currentAction() == (int) Movement.RESCUE) {
                 blue_rescue = true;
             }
         }
         if(blue_tagged && !blue_rescue) {
             int index = Random.Range(min,max);
             float closest_distance_blue = float.PositiveInfinity;
-            blue_script = blue_team[index].GetComponent<BlueAIBehavior>();
-            if(blue_script.currentAction() == (int) Movement.WANDER) {
+            ai_script = blue_team[index].GetComponent<AIBehaviour>();
+            if(ai_script.currentAction() == (int) Movement.WANDER) {
                 foreach (GameObject tagged_player in tagged_blue_player) {
                     if((tagged_player.transform.position - blue_team[index].transform.position).magnitude < closest_distance_blue) {
                         closest_distance_blue = (tagged_player.transform.position - blue_team[index].transform.position).magnitude;
                         rescue_target_blue = tagged_player;                        
                     }
                 }
-                blue_script.setActions(5);
-                blue_script.target = rescue_target_blue;
+                ai_script.setActions(5);
+                ai_script.target = rescue_target_blue;
                 blue_rescue = true;
             }
         }
